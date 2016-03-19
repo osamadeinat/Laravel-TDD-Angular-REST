@@ -1,0 +1,18 @@
+<div data-ng-init="methods.viewVideo()"> User
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3">
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm">
+                        <md-button ng-click="methods.showPlayer($event, video.url)" class="md-raised md-primary"><span
+                                class="fa fa-play"> Play</span></md-button>
+                        <md-switch ng-show="{{permissions.videos == 2}}" aria-label=" status
+                        " ng-model="video.banned" ng-true-value="true" ng-false-value="false"
+                        ng-click="methods.toggleStatus(video)"> Banned                         </md-switch>
+                        <md-button type="button" ui-sref="App.Videos" class="md-raised md-primary">Close</md-button>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

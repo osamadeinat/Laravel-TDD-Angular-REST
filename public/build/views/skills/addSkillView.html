@@ -1,0 +1,27 @@
+<div>
+    Add New Skill
+
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3" >
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm" data-ng-submit="methods.saveSkill(skill.id)">
+                        <md-input-container>
+                            <label>Name:</label>
+                            <input ng-model="skill.title"  required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <md-radio-group ng-model="skill.type">
+                                <md-radio-button value="professional" >Professional</md-radio-button>
+                                <md-radio-button value="personal"> Personal </md-radio-button>
+                                <md-radio-button value="technology">Technology</md-radio-button>
+                            </md-radio-group>
+                        </md-input-container>
+                        <md-button type="submit" class="md-raised md-primary">Save</md-button>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

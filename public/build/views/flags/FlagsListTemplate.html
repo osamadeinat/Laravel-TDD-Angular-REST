@@ -1,0 +1,84 @@
+<div class="title">{{title}}</div>
+
+<div data-ng-init="methods.getFlags()">
+
+    <section layout="column" layout-sm="column" layout-align="center center">
+
+        <md-input-container>
+            <md-radio-group ng-model="filter" ng-change="methods.filter()">
+                <md-radio-button value="" >All</md-radio-button>
+                <md-radio-button value="video"> Videos </md-radio-button>
+                <md-radio-button value="job">Jobs</md-radio-button>
+                <md-radio-button value="company">Companies</md-radio-button>
+                <md-radio-button value="user">Users</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+
+    </section>
+
+    <table class="md-table md-whiteframe-z3">
+        <thead>
+        <tr class="md-table-headers-row">
+
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'title' ; sortReverse=!sortReverse">
+                    Reason
+                    <span ng-show="sortType == 'title' " ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                </a>
+            </td>
+
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'type' ; sortReverse=!sortReverse">
+                    Type
+                    <span ng-show="sortType == 'type' " ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                </a>
+            </td>
+
+            <td class="md-table-header" ng-show="{{permissions.flags}}">
+                Flag
+            </td>
+
+            <td class="md-table-header" ng-show="{{permissions.flags == 2}}">
+                <a href="#">
+                    Actions
+                </a>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="flag in flags  | orderBy:sortType:sortReverse | filter:search" class="md-table-content-row">
+            <td class="md-table-content">{{ flag.reason }}</td>
+            <td class="md-table-content">{{ flag.type }}</td>
+            <td class="md-table-content"><a href="#" ng-click="methods.viewObject(flag)">View</a></td>
+            <td class="md-table-td-more" ng-show="{{permissions.flags == 2}}">
+                <md-button class="md-icon-button" aria-label="More"  ng-click="methods.deleteFlag(flag.id)">
+                    <i class="fa fa-times"></i>
+                </md-button>
+            </td>
+
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+    <tfoot>
+    <tr>
+        <span>Page {{meta.currentPage}} Of {{meta.total/pageLimit}}</span>
+        <paging
+                class="small"
+                page="meta.currentPage"
+                page-size="pageLimit"
+                total="meta.total"
+                adjacent="2"
+                dots="..."
+                scroll-top="false"
+                hide-if-empty="true"
+                ul-class="pagination"
+                active-class="active"
+                disabled-class="disabled"
+                show-prev-next="true"
+                paging-action="methods.pagingHandler('Paging Clicked', page - 1, pageSize, total)">
+
+        </paging>
+    </tr>
+    </tfoot>
+</div>

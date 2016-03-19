@@ -1,0 +1,29 @@
+<div data-ng-init="methods.getCountries(); methods.getLocation()">
+    Add New Location
+
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3" >
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm" data-ng-submit="methods.saveLocation(location.id)">
+                        <md-input-container>
+                            <label>Title:</label>
+                            <input ng-model="location.title"  required>
+                        </md-input-container>
+
+                       <select ng-model="location.country_code" ng-options="country.cca2 as country.name.common for country in countries"
+                               ng-change="methods.changePosition(location.country_code)">
+                       </select>
+
+                        <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" events="map.events">
+                            <ui-gmap-marker ng-repeat="m in map.markers" coords="m.coords" icon="m.icon" idkey="m.id"></ui-gmap-marker>
+                        </ui-gmap-google-map>
+
+                        <md-button type="submit" class="md-raised md-primary">Save</md-button>
+                        <md-button type="button" ng-click="methods.back()" class="md-raised md-primary">Cancel</md-button>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

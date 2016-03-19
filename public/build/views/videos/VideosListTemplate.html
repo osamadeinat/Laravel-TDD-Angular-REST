@@ -1,0 +1,85 @@
+<div class="title">{{title}}</div>
+
+<div data-ng-init="methods.getVideos()">
+
+    <section layout="column" layout-sm="column" layout-align="center center">
+        <md-input-container>
+            <md-radio-group ng-model="filter" ng-change="methods.filter()">
+                <md-radio-button value="" >All</md-radio-button>
+                <md-radio-button value="banned"> Banned </md-radio-button>
+                <md-radio-button value="not-banned">Un-Banned</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+    </section>
+
+    <table class="md-table md-whiteframe-z3">
+        <thead>
+        <tr class="md-table-headers-row">
+            <td class="md-table-header">
+                <a>
+                    ScreenShot
+                </a>
+            </td>
+
+            <td class="md-table-header">
+                <a>
+                    View Owner
+                </a>
+            </td>
+
+            <td class="md-table-header">
+                <a>
+                    Video
+                </a>
+            </td>
+
+            <td class="md-table-header" ng-show="{{permissions.videos == 2}}">
+                <a>
+                    Banned
+                </a>
+            </td>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="video in videos  | orderBy:sortType:sortReverse | filter:search" class="md-table-content-row">
+            <td class="md-table-content"><img-directive url="video.screen_shot" square="true"></img-directive></td>
+
+            <td class="md-table-content"><a href="#" ng-click="methods.viewOwner(video.owner_id)">View Owner</a></td>
+            <td class="md-table-content">
+                <span class="fa fa-play" ng-click="methods.showPlayer($event, video.url)">
+                </span>
+            </td>
+            <td class="md-table-td-more" ng-show="{{permissions.videos == 2}}">
+                <md-switch aria-label="status" ng-model="video.banned" ng-true-value="'banned'" ng-false-value="'un-banned'" ng-click="methods.toggleStatus(video)">
+
+                </md-switch>
+            </td>
+
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+    <tfoot>
+    <tr>
+        <span>Page {{meta.currentPage}} Of {{meta.total/pageLimit}}</span>
+        <paging
+                class="small"
+                page="meta.currentPage"
+                page-size="pageLimit"
+                total="meta.total"
+                adjacent="2"
+                dots="..."
+                scroll-top="false"
+                hide-if-empty="true"
+                ul-class="pagination"
+                active-class="active"
+                disabled-class="disabled"
+                show-prev-next="true"
+                paging-action="methods.pagingHandler('Paging Clicked', page - 1, pageSize, total)">
+
+        </paging>
+    </tr>
+    </tfoot>
+</div>
+

@@ -4,7 +4,7 @@ var Factories = require('./Factories');
 /**
  * @ngInject
  */
-function clearUrlService($rootScope, AppSettings) {
+function clearUrlService() {
 
     this.clearUrl = function (params) {
         var url = '';

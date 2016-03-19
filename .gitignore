@@ -1,9 +1,6 @@
 /vendor
 /node_modules
 /bower_components
-/public/build/js/*
-/public/build/views/**/*
-/public/css/*
 Homestead.yaml
 .env
 .vagrant

@@ -36,16 +36,7 @@ describe('Resources Factory', function() {
                     type: 'admin',
                     permissions: {
                         "admins" : 0,
-                        "companies":0,
-                        "flags":0,
-                        "industries":0,
-                        "jobs":0,
-                        "languages":0,
-                        "locations":0,
-                        "positions":0,
-                        "skills":0,
-                        "users":0,
-                        "videos":0
+                        "users":0
                     }
                 },
                 {
@@ -55,16 +46,7 @@ describe('Resources Factory', function() {
                     type: 'admin',
                     permissions: {
                         "admins" : 0,
-                        "companies":0,
-                        "flags":0,
-                        "industries":0,
-                        "jobs":0,
-                        "languages":0,
-                        "locations":0,
-                        "positions":0,
-                        "skills":0,
-                        "users":0,
-                        "videos":0
+                        "users":0
                     }
                 }
             ]
@@ -86,16 +68,7 @@ describe('Resources Factory', function() {
                 type: 'admin',
                 permissions: {
                     "admins" : 0,
-                    "companies":0,
-                    "flags":0,
-                    "industries":0,
-                    "jobs":0,
-                    "languages":0,
-                    "locations":0,
-                    "positions":0,
-                    "skills":0,
-                    "users":0,
-                    "videos":0
+                    "users":0
                 }
             },
             {
@@ -105,16 +78,7 @@ describe('Resources Factory', function() {
                 type: 'admin',
                 permissions: {
                     "admins" : 0,
-                    "companies":0,
-                    "flags":0,
-                    "industries":0,
-                    "jobs":0,
-                    "languages":0,
-                    "locations":0,
-                    "positions":0,
-                    "skills":0,
-                    "users":0,
-                    "videos":0
+                    "users":0
                 }
             }
         ]);
@@ -130,16 +94,7 @@ describe('Resources Factory', function() {
                     type: 'admin',
                     permissions: {
                         "admins" : 0,
-                        "companies":0,
-                        "flags":0,
-                        "industries":0,
-                        "jobs":0,
-                        "languages":0,
-                        "locations":0,
-                        "positions":0,
-                        "skills":0,
-                        "users":0,
-                        "videos":0
+                        "users":0
                     }
                 }
         );
@@ -160,16 +115,7 @@ describe('Resources Factory', function() {
                 type: 'admin',
                 permissions: {
                     "admins" : 0,
-                    "companies":0,
-                    "flags":0,
-                    "industries":0,
-                    "jobs":0,
-                    "languages":0,
-                    "locations":0,
-                    "positions":0,
-                    "skills":0,
-                    "users":0,
-                    "videos":0
+                    "users":0
                 }
             }
         );
@@ -183,16 +129,7 @@ describe('Resources Factory', function() {
             type: 'admin',
             permissions: {
                 "admins" : 0,
-                "companies":0,
-                "flags":0,
-                "industries":0,
-                "jobs":0,
-                "languages":0,
-                "locations":0,
-                "positions":0,
-                "skills":0,
-                "users":0,
-                "videos":0
+                "users":0
             }
         });
 
@@ -205,16 +142,7 @@ describe('Resources Factory', function() {
             type: 'admin',
             permissions: {
                 "admins" : 0,
-                "companies":0,
-                "flags":0,
-                "industries":0,
-                "jobs":0,
-                "languages":0,
-                "locations":0,
-                "positions":0,
-                "skills":0,
-                "users":0,
-                "videos":0
+                "users":0
             }
         }).then(function (response) {
             data = response.data;
@@ -229,16 +157,7 @@ describe('Resources Factory', function() {
             type: 'admin',
             permissions: {
                 "admins" : 0,
-                "companies":0,
-                "flags":0,
-                "industries":0,
-                "jobs":0,
-                "languages":0,
-                "locations":0,
-                "positions":0,
-                "skills":0,
-                "users":0,
-                "videos":0
+                "users":0
             }
         });
     });
@@ -252,16 +171,7 @@ describe('Resources Factory', function() {
             type: 'admin',
             permissions: {
                 "admins" : 0,
-                "companies":0,
-                "flags":0,
-                "industries":0,
-                "jobs":0,
-                "languages":0,
-                "locations":0,
-                "positions":0,
-                "skills":0,
-                "users":0,
-                "videos":0
+                "users":0
             }
         });
 
@@ -275,16 +185,7 @@ describe('Resources Factory', function() {
             type: 'admin',
             permissions: {
                 "admins" : 0,
-                "companies":0,
-                "flags":0,
-                "industries":0,
-                "jobs":0,
-                "languages":0,
-                "locations":0,
-                "positions":0,
-                "skills":0,
-                "users":0,
-                "videos":0
+                "users":0
             }
         }).then(function (response) {
             data = response.data;
@@ -299,16 +200,7 @@ describe('Resources Factory', function() {
             type: 'admin',
             permissions: {
                 "admins" : 0,
-                "companies":0,
-                "flags":0,
-                "industries":0,
-                "jobs":0,
-                "languages":0,
-                "locations":0,
-                "positions":0,
-                "skills":0,
-                "users":0,
-                "videos":0
+                "users":0
             }
         });
     });

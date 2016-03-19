@@ -1,0 +1,36 @@
+<div data-ng-init="methods.viewCompany()">
+    User
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3" >
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm" >
+
+                        <md-input-container>
+                            <label>Name:</label>
+                            <input ng-model="company.name"  required>
+                        </md-input-container>
+
+
+                        <md-input-container>
+                            <label>Owner Name:</label>
+                            <input ng-model="company.owner_name"  required>
+                        </md-input-container>
+
+
+                        <md-switch aria-label="status" ng-model="company.banned" ng-true-value="true" ng-false-value="false" ng-click="methods.toggleStatus(company)">
+                            Banned
+                        </md-switch>
+
+                        <md-switch aria-label="status" ng-model="company.suspended" ng-true-value="true" ng-false-value="false" ng-click="methods.toggleStatus(company)">
+                            Suspend
+                        </md-switch>
+
+
+                        <md-button type="button" ui-sref="App.Companies" class="md-raised md-primary">Close</md-button>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

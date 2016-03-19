@@ -1,0 +1,39 @@
+<form name="login" class="login-panel md-whiteframe-z3">
+<md-content>
+    <section layout="column" layout-sm="column" layout-align="center center">
+        <h2>Login</h2>
+
+            <md-input-container>
+                <label>E-mail</label>
+                <input name="email" id="email" ng-model="user.email" type="email" required>
+
+
+                <div ng-messages="login.email.$error">
+                    <div ng-message="email">
+                        Invalid E-mail
+                    </div>
+                </div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Password</label>
+                <input name="password" id="password" type="password" ng-model="user.password" required minlength="6">
+
+                <div ng-messages="login.password.$error">
+                    <div ng-message="minlength">
+                        Minimum Length is 6
+                    </div>
+                </div>
+                </div>
+            </md-input-container>
+        <md-button ng-click="methods.login()" class="md-raised md-primary">Login</md-button>
+    </section>
+
+
+        <div class="login-error">
+            {{authErrMessage.message}}
+        </div>
+
+</md-content>
+</form>

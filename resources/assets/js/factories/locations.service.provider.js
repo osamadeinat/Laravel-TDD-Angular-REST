@@ -4,7 +4,7 @@ var Factories = require('./Factories');
 /**
  * @ngInject
  */
-function locationsServiceProvider($rootScope, $http) {
+function locationsServiceProvider($http) {
 
     this.getLocations = function () {
         return $http.get('build/json/countries.json');

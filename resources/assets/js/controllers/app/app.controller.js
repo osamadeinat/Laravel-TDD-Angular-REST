@@ -4,7 +4,7 @@ var controllersModule = require('./../Controllers');
 /**
  * @ngInject
  */
-function AppController($rootScope, $scope, $http, $state, AppSettings){
+function AppController($rootScope, $scope, $state){
     $scope.title = "APP - App";
     $scope.permissions = {};
 

@@ -1,0 +1,24 @@
+<div>
+    Add New Position
+
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3" >
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm" data-ng-submit="methods.savePosition(position.id)">
+                        <md-input-container>
+                            <label>Title:</label>
+                            <input ng-model="position.title"  required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Type:</label>
+                            <input ng-model="position.type"  required>
+                        </md-input-container>
+                        <md-button type="submit" class="md-raised md-primary">Save</md-button>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div data-ng-init="methods.viewUser()">
+    User
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3" >
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm" >
+
+                        <md-input-container>
+                            <label>First Name:</label>
+                            <input ng-model="user.first_name"  required>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>First Name:</label>
+                            <input ng-model="user.last_name"  required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>E-mail:</label>
+                            <input ng-model="user.contact_info.email"  required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Mobile:</label>
+                            <input ng-model="user.contact_info.mobile"  required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Skype:</label>
+                            <input ng-model="user.contact_info.skype"  required>
+                        </md-input-container>
+
+
+                        <md-switch aria-label="status" ng-model="user.banned" ng-true-value="true" ng-false-value="false" ng-click="methods.toggleStatus(user)">
+                            Banned
+                        </md-switch>
+
+                        <md-switch aria-label="status" ng-model="user.suspended" ng-true-value="true" ng-false-value="false" ng-click="methods.toggleStatus(user)">
+                            Suspend
+                        </md-switch>
+
+
+                        <md-button type="button" ui-sref="App.Users" class="md-raised md-primary">Close</md-button>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

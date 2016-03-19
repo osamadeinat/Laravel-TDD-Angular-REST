@@ -4,7 +4,7 @@ var controllersModule = require('./../Controllers');
 /**
  * @ngInject
  */
-function AdminsController($rootScope, $scope, $http, $state, resourcesFactory, transformationService, AppSettings){
+function AdminsController($rootScope, $scope, $state, resourcesFactory, transformationService){
 
     $scope.title = "APP - Admins";
 

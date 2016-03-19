@@ -1,0 +1,74 @@
+<div class="title">{{title}}</div>
+
+<div data-ng-init="methods.getPositions()">
+
+    <section layout="column" layout-sm="column" layout-align="center center">
+        <md-input-container>
+            <label>Search</label>
+            <input type="text" ng-model="name" ng-change="methods.search(name)">
+        </md-input-container>
+
+
+        <md-button ng-click="methods.addNewPosition()" class="md-raised md-primary" ng-show="{{permissions.positions == 2}}">+ Add New Position</md-button>
+    </section>
+
+    <table class="md-table md-whiteframe-z3">
+        <thead>
+        <tr class="md-table-headers-row">
+
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'title' ; sortReverse=!sortReverse">
+                    Title
+                    <span ng-show="sortType == 'title' " ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                </a>
+            </td>
+
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'type' ; sortReverse=!sortReverse">
+                    Type
+                    <span ng-show="sortType == 'type' " ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                </a>
+            </td>
+
+            <td class="md-table-header" ng-show="{{permissions.positions == 2}}">
+                <a href="#">
+                    Approve
+                </a>
+            </td>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="position in positions  | orderBy:sortType:sortReverse | filter:search" class="md-table-content-row">
+            <td class="md-table-content">{{ position.title }}</td>
+            <td class="md-table-content">{{ position.type }}</td>
+            <td class="md-table-td-more" ng-show="{{permissions.positions == 2}}">
+                <md-switch aria-label="status" ng-model="position.status" ng-true-value="'approved'" ng-false-value="'not-approved'" ng-click="methods.toggleStatus(position)">
+
+                </md-switch>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <tfoot>
+    <tr>
+        <span>Page {{meta.currentPage}} Of {{meta.total/pageLimit}}</span>
+        <paging
+                class="small"
+                page="meta.currentPage"
+                page-size="pageLimit"
+                total="meta.total"
+                adjacent="2"
+                dots="..."
+                scroll-top="false"
+                hide-if-empty="true"
+                ul-class="pagination"
+                active-class="active"
+                disabled-class="disabled"
+                show-prev-next="true"
+                paging-action="methods.pagingHandler('Paging Clicked', page - 1, pageSize, total)">
+
+        </paging>
+    </tr>
+    </tfoot>
+</div>

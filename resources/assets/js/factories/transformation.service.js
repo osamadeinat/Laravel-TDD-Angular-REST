@@ -4,7 +4,7 @@ var Factories = require('./Factories');
 /**
  * @ngInject
  */
-function transformationService($rootScope, AppSettings) {
+function transformationService(AppSettings) {
 
     this.transform = function (metaObject) {
 
@@ -46,90 +46,6 @@ function transformationService($rootScope, AppSettings) {
         }
     };
 
-
-    this.transformSkill = function(object){
-        return {
-            id: object.id,
-            title: object.title,
-            type: object.type
-        }
-    };
-
-
-    this.transformIndustry = function(object){
-        return {
-            id: object.id,
-            title: object.title,
-        }
-    };
-
-
-    this.transformLocation = function(object){
-        return {
-            id: object.id,
-            country_code: object.country_code,
-            title: object.title,
-            latitude: object.latitude,
-            longitude: object.longitude
-        }
-    };
-
-    this.transformVideo = function(object){
-        return {
-            id: object.id,
-            owner_id: object.owner_id,
-            screen_shot: object.screen_shot,
-            status: object.status,
-            url: object.url
-        }
-    };
-
-    this.transformFlag = function (object) {
-      return {
-          id: object.id,
-          object_id: object.object_id,
-          reason: object.reason,
-          type: object.type
-      }
-    };
-
-    this.transformLanguage = function (object) {
-        return {
-            id: object.id,
-            alias: object.alias,
-            title: object.title
-        };
-    };
-
-    this.transformCompany = function (object) {
-      return{
-          id: object.id,
-          name:object.name,
-          owner_id:object.owner_id,
-          owner_name:object.owner_name,
-          status:  object.status
-      };
-    };
-
-    this.transformPosition = function (object) {
-       return {
-            id: object.id,
-            title: object.title,
-            type: object.type,
-            status: object.status
-        };
-    };
-
-    this.transformJob = function (object) {
-      return {
-          id:object.id,
-          owner_id: object.owner_id,
-          questionaire:object.questionaire,
-          status:object.status,
-          summary:object.summary,
-          title: object.title
-      }
-    };
 
     this.transformCollection = function (collection , callback) {
        var transformedCollection =  _.each(collection, function (model) {

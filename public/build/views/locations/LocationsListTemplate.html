@@ -1,0 +1,79 @@
+<div class="title">{{title}}</div>
+
+<div data-ng-init="methods.getLocations(); methods.getCountries()">
+
+    <section layout="column" layout-sm="column" layout-align="center center">
+        <md-input-container>
+            <label>Search</label>
+            <input type="text" ng-model="name" ng-change="methods.search(name)">
+        </md-input-container>
+
+        <select ng-model="filter" ng-options="country.cca2 as country.name.common for country in countries"
+                ng-change="methods.filter()">
+        </select>
+
+
+        <md-button ng-click="methods.locationView()" class="md-raised md-primary" ng-show="{{permissions.locations == 2}}">+ Add New Location</md-button>
+    </section>
+
+    <table class="md-table md-whiteframe-z3">
+        <thead>
+        <tr class="md-table-headers-row">
+
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'title' ; sortReverse=!sortReverse">
+                    Title
+                    <span ng-show="sortType == 'title' " ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                </a>
+            </td>
+
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'country' ; sortReverse=!sortReverse">
+                    Country
+                    <span ng-show="sortType == 'country' " ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                </a>
+            </td>
+
+            <td class="md-table-header" ng-show="{{permissions.locations == 2}}">
+                Actions
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="location in locations  | orderBy:sortType:sortReverse | filter:search" class="md-table-content-row">
+            <td class="md-table-content">{{ location.title }}</td>
+            <td class="md-table-content">{{ location.country_code }}</td>
+
+            <td class="md-table-td-more" ng-show="{{permissions.locations == 2}}">
+                <md-button class="md-icon-button" aria-label="More" ng-click="methods.locationView(location.id)">
+                    <i class="fa fa-pencil-square-o"></i>
+                </md-button>
+            </td>
+
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+    <tfoot>
+    <tr>
+        <span>Page {{meta.currentPage}} Of {{meta.total/pageLimit}}</span>
+        <paging
+                class="small"
+                page="meta.currentPage"
+                page-size="pageLimit"
+                total="meta.total"
+                adjacent="2"
+                dots="..."
+                scroll-top="false"
+                hide-if-empty="true"
+                ul-class="pagination"
+                active-class="active"
+                disabled-class="disabled"
+                show-prev-next="true"
+                paging-action="methods.pagingHandler('Paging Clicked', page - 1, pageSize, total)">
+
+        </paging>
+    </tr>
+    </tfoot>
+</div>
+

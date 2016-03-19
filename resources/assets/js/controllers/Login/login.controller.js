@@ -9,8 +9,6 @@ function LoginController($scope, $state, authentication){
     $scope.user = {
     };
 
-
-
     $scope.methods = {
         login: function() {
             if(!_.isUndefined($scope.user.email) && !_.isUndefined($scope.user.password)){

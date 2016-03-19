@@ -26,8 +26,8 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt('123123'),
             'name' => 'Osama Thenat',
             'type' => User::$NORMAL,
-            'access_users' => 2,
-            'access_admins' => 2,
+            'access_users' => 1,
+            'access_admins' => 0,
         ]);
     }
 }

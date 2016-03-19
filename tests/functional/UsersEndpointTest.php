@@ -17,7 +17,7 @@ class UsersEndpointTest extends TestCase
     public function setUp(){
         parent::setup();
         Artisan::call('db:seed');
-        $this->getValidAccessTokenAdmin('tambi@simpleworld.io', '123123');
+        $this->getValidAccessTokenAdmin('osama.denat@gmail.com', '123123');
     }
 
     public function tearDown(){
@@ -58,7 +58,7 @@ class UsersEndpointTest extends TestCase
 
     public function testIfUserWithoutAccessCantEditUser()
     {
-        $this->getValidAccessTokenAdmin('bumstyla@gmail.com', '123123');
+        $this->getValidAccessTokenAdmin('othenat@souq.com', '123123');
 
         $this->patch('/api/v1/users/1',[ 'suspended' => true ], [
             'Authorization' => 'Bearer ' . $this->oauthAccessToken,

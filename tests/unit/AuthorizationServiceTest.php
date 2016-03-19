@@ -24,12 +24,12 @@ class AuthorizationServiceTest extends TestCase
     {
         $authorizationService = new AuthorizationService();
 
-        $userMock = m::mock('Opo\Domain\User');
+        $userMock = m::mock('Services\Domain\User');
         $userMock->shouldReceive('getAttribute')
-        ->with('access_companies')
+        ->with('access_users')
         ->andReturn(1);
 
-        $result = $authorizationService->withUser($userMock)->canRead('companies');
+        $result = $authorizationService->withUser($userMock)->canRead('users');
 
         $this->assertTrue($result);
     }
@@ -38,12 +38,12 @@ class AuthorizationServiceTest extends TestCase
     {
         $authorizationService = new AuthorizationService();
 
-        $userMock = m::mock('Opo\Domain\User');
+        $userMock = m::mock('Services\Domain\User');
         $userMock->shouldReceive('getAttribute')
-            ->with('access_companies')
+            ->with('access_users')
             ->andReturn(2);
 
-        $result = $authorizationService->withUser($userMock)->canWrite('companies');
+        $result = $authorizationService->withUser($userMock)->canWrite('users');
 
         $this->assertTrue($result);
     }
@@ -52,12 +52,12 @@ class AuthorizationServiceTest extends TestCase
     {
         $authorizationService = new AuthorizationService();
 
-        $userMock = m::mock('Opo\Domain\User');
+        $userMock = m::mock('Services\Domain\User');
         $userMock->shouldReceive('getAttribute')
-            ->with('access_companies')
+            ->with('access_users')
             ->andReturn(1);
 
-        $result = $authorizationService->withUser($userMock)->canWrite('companies');
+        $result = $authorizationService->withUser($userMock)->canWrite('users');
 
         $this->assertFalse($result);
     }

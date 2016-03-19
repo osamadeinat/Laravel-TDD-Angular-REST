@@ -21,7 +21,7 @@ class PaginationMetaTraitTest extends TestCase
     }
 
     public function testIfPaginationResultIsOk(){
-        $paginationMeta = $this->getObjectForTrait('Opo\Application\PaginationMeta');
+        $paginationMeta = $this->getObjectForTrait('Services\Application\PaginationMeta');
         $result = $paginationMeta->getPaginationMeta('www.google.com',100,10,10);
 
         $this->assertEquals([
@@ -33,7 +33,7 @@ class PaginationMetaTraitTest extends TestCase
     }
 
     public function testIfPaginationResultIsOkOnOdd(){
-        $paginationMeta = $this->getObjectForTrait('Opo\Application\PaginationMeta');
+        $paginationMeta = $this->getObjectForTrait('Services\Application\PaginationMeta');
         $result = $paginationMeta->getPaginationMeta('www.google.com',103,13,10);
 
         $this->assertEquals([
@@ -45,7 +45,7 @@ class PaginationMetaTraitTest extends TestCase
     }
 
     public function testIfPaginationResultIsOkOnTwentry(){
-        $paginationMeta = $this->getObjectForTrait('Opo\Application\PaginationMeta');
+        $paginationMeta = $this->getObjectForTrait('Services\Application\PaginationMeta');
         $result = $paginationMeta->getPaginationMeta('www.google.com',100,19,20);
 
         $this->assertEquals([

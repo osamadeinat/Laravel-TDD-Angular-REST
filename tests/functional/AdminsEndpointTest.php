@@ -18,7 +18,7 @@ class AdminsEndpointTest extends TestCase
     {
         parent::setUp();
         Artisan::call('db:seed');
-        $this->getValidAccessTokenAdmin('tambi@simpleworld.io', '123123');
+        $this->getValidAccessTokenAdmin('osama.denat@gmail.com', '123123');
     }
 
     public function tearDown()
@@ -28,7 +28,7 @@ class AdminsEndpointTest extends TestCase
 
     public function testIfNormalAdminsCantAccessEndpoint()
     {
-        $this->getValidAccessTokenAdmin('bumstyla@gmail.com', '123123');
+        $this->getValidAccessTokenAdmin('othenat@souq.com', '123123');
 
         $this->get('/api/v1/admins', [
             'Authorization' => 'Bearer ' . $this->oauthAccessToken,
@@ -60,16 +60,7 @@ class AdminsEndpointTest extends TestCase
             'email' => 'someone@somedomain.com',
             'name' => 'Someguy Somefamily',
             'permissions' => [
-                'companies' => 0,
-                'flags' => 1,
-                'industries' => 0,
-                'jobs' => 0,
-                'languages' => 2,
-                'locations' => 0,
-                'positions' => 1,
-                'skills' => 0,
                 'users' => 0,
-                'videos' => 0,
                 'admins' => 0
             ]
         ], [
@@ -84,16 +75,7 @@ class AdminsEndpointTest extends TestCase
             'email' => 'someone@somedomain',
             'name' => 'Someguy Somefamily',
             'permissions' => [
-                'companies' => 0,
-                'flags' => 1,
-                'industries' => 0,
-                'jobs' => 0,
-                'languages' => 2,
-                'locations' => 0,
-                'positions' => 1,
-                'skills' => 0,
                 'users' => 0,
-                'videos' => 0,
                 'admins' => 0
             ]
         ], [
@@ -107,16 +89,7 @@ class AdminsEndpointTest extends TestCase
         $this->post('/api/v1/admins', [
             'email' => 'someone@somedomain.com',
             'permissions' => [
-                'companies' => 0,
-                'flags' => 1,
-                'industries' => 0,
-                'jobs' => 0,
-                'languages' => 2,
-                'locations' => 0,
-                'positions' => 1,
-                'skills' => 0,
                 'users' => 0,
-                'videos' => 0,
                 'admins' => 0
             ]
         ], [
@@ -126,20 +99,11 @@ class AdminsEndpointTest extends TestCase
     }
 
     public function testIfAbleToEditAnAdmin(){
-        $this->put('/api/v1/admins/1', [
+        $this->put('/api/v1/admins/2', [
             'email' => 'newemail@email.com',
             'name' => 'new name',
             'permissions' => [
-                'companies' => 1,
-                'flags' => 1,
-                'industries' => 1,
-                'jobs' => 1,
-                'languages' => 1,
-                'locations' => 1,
-                'positions' => 1,
-                'skills' => 1,
                 'users' => 1,
-                'videos' => 1,
                 'admins' => 1
             ]
         ], [
@@ -150,22 +114,13 @@ class AdminsEndpointTest extends TestCase
 
     public function testIfAdminCannotModifyHimself(){
 
-        $this->getValidAccessTokenAdmin('bumstyla@gmail.com', '123123');
+        $this->getValidAccessTokenAdmin('othenat@souq.com', '123123');
 
         $this->put('/api/v1/admins/1', [
             'email' => 'newemail@email.com',
             'name' => 'new name',
             'permissions' => [
-                'companies' => 1,
-                'flags' => 1,
-                'industries' => 1,
-                'jobs' => 1,
-                'languages' => 1,
-                'locations' => 1,
-                'positions' => 1,
-                'skills' => 1,
                 'users' => 1,
-                'videos' => 1,
                 'admins' => 1
             ]
         ], [
@@ -183,7 +138,7 @@ class AdminsEndpointTest extends TestCase
 
     public function testIfAdminCannotDelteSuperAdmin(){
 
-        $this->getValidAccessTokenAdmin('bumstyla@gmail.com', '123123');
+        $this->getValidAccessTokenAdmin('othenat@souq.com', '123123');
 
         $this->delete('/api/v1/admins/2',[], [
             'Authorization' => 'Bearer ' . $this->oauthAccessToken,

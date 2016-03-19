@@ -4,7 +4,7 @@ var controllersModule = require('./../Controllers');
 /**
  * @ngInject
  */
-function DashboardController($rootScope, $scope, $http, AppSettings){
+function DashboardController($scope){
     $scope.title = "APP - Dashboard";
 }
 controllersModule.controller('DashboardController', DashboardController);

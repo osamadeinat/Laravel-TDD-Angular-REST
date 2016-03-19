@@ -4,7 +4,7 @@ var controllersModule = require('./../Controllers');
 /**
  * @ngInject
  */
-function UsersController($rootScope, $scope, $state, AppSettings, resourcesFactory, $timeout, $mdDialog, playerService, transformationService, clearUrlService){
+function UsersController($scope, $state, AppSettings, resourcesFactory, $timeout, $mdDialog, playerService, transformationService, clearUrlService){
     $scope.title = "APP - UsersController";
 
     $scope.sortReverse = false;
@@ -21,13 +21,8 @@ function UsersController($rootScope, $scope, $state, AppSettings, resourcesFacto
     resourcesFactory.setEndPoint('users');
 
 
-    //$scope.$on('showVideoOwner', $scope.methods.viewUser(id));
-
-
-
     $scope.methods = {
-        getUsers: function (params) {
-
+        getUsers: function () {
             return resourcesFactory.getAll(clearUrlService.clearUrl($scope.metaLink)).then(function (response) {
                 $scope.users = transformationService.transformCollection(resourcesFactory.getCollection(), transformationService.transformUser);
 

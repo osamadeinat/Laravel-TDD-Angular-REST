@@ -1,0 +1,31 @@
+<div data-ng-init="methods.getJob()">
+    Job
+
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3" >
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm" data-ng-submit="">
+                        <md-input-container>
+                            <label>Title:</label>
+                            <input ng-model="job.title"  required>
+                        </md-input-container>
+
+                        <md-list-item class="md-3-line" ng-repeat="object in job.questionaire | orderBy:'LowestFare'">
+                            <div class="md-list-item-text">
+                                <h3>{{ object.question }}</h3>
+                                <h4 ng-repeat="answer in object.answers">{{ answer}}</h4>
+                            </div>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                        </md-list>
+
+                        <md-switch aria-label="status" ng-model="job.status" ng-true-value="'banned'" ng-false-value="'un-banned'" ng-click="methods.toggleStatus(job)">
+                            Ban/Un-Ban Job
+                        </md-switch>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

@@ -32,16 +32,7 @@ describe('App Controller', function(){
                 setPermissions: function () {
                     scope.permissions = {
                         "admins" : 0,
-                        "companies":0,
-                        "flags":0,
-                        "industries":0,
-                        "jobs":0,
-                        "languages":0,
-                        "locations":0,
-                        "positions":0,
-                        "skills":0,
-                        "users":0,
-                        "videos":0
+                        "users":0
                     };
                 }
             }
@@ -66,16 +57,7 @@ describe('App Controller', function(){
         scope.methods.setPermissions();
         expect(scope.permissions).toEqual({
             "admins" : 0,
-            "companies":0,
-            "flags":0,
-            "industries":0,
-            "jobs":0,
-            "languages":0,
-            "locations":0,
-            "positions":0,
-            "skills":0,
-            "users":0,
-            "videos":0
+            "users":0
         });
     });
 });

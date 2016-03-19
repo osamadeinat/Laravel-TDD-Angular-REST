@@ -4,7 +4,7 @@ var Factories = require('./Factories');
 /**
  * @ngInject
  */
-function playerService($rootScope) {
+function playerService() {
 
     this.player = function (url) {
         return {

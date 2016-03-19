@@ -1,0 +1,6 @@
+<ul class="pagination">
+    <li class="prev"  ng-if="meta.prev" ng-click="prevFn(); changePage()"><a href="">&lsaquo; Prev</a></li>
+    <li ng-repeat="page in pages"><a href="" ng-click="goFn({page: page - 1}); changePage(page)">{{page}}</a></li>
+    <li class="next" ng-if="meta.next" ng-click="nextFn(); changePage()"><a href="">Next &rsaquo;</a></li>
+    <span>Page {{meta.currentPage}} of {{meta.total.length}}</span>
+</ul>

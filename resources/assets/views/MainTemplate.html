@@ -1,0 +1,13 @@
+<div>
+
+    <div class="nav-menu">
+        <ul class="menu-items">
+            <li class="menu-item"><a href="" ng-click="methods.goTo('Dashboard')">Dashboard</a></li>
+            <li ng-show="{{permissions.admins == 1  ||  permissions.admins == 2}}" class="menu-item"><a href="" ng-click="methods.goTo('Admins')">Admins</a></li>
+            <li ng-show="{{permissions.users == 1   ||  permissions.users == 2}} " class="menu-item"><a href="" ng-click="methods.goTo('Users')">Users</a></li>
+        </ul>
+    </div>
+    <span class="main-logout" ui-sref="Logout"> Logout!</span>
+    <span class="main-welcome-user">{{username}} - </span>
+    <div class="main-content" ui-view></div>
+</div>

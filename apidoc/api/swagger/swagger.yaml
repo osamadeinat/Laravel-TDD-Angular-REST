@@ -1,0 +1,1158 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: OPO Admin API
+  description:
+    This is the OPO Administration API. It will be used by the front end code to or later a mobile
+    application to manage the OPO static and dynamic data.
+
+    All endpoints will require you to send an access_token in the header which you get from the ``/oauth/login`` endpoint
+  contact:
+    name: Tambi Jalouqa - CTO
+    email: tambi@simpleworld.io
+
+# during dev, should point to your local machine
+host: localhost:8081
+# basePath prefixes all resource paths
+basePath: /v1
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+#####################################################
+#                        Tags                       #
+#####################################################
+tags:
+  - name: Security
+  - name: Users
+#####################################################
+#                        Security                   #
+#####################################################
+# security:
+#   - opoAccessCode:
+#     - admin
+#     - super_admin
+#####################################################
+#                       Paths                       #
+#####################################################
+paths:
+  /oauth/login:
+    x-swagger-router-controller: oauthController
+    post:
+      operationId: getOauthToken
+      description: Used to get an access token
+      tags:
+        - Security
+      parameters:
+        - name: properties
+          in: body
+          schema:
+            type: array
+            items:
+                properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+                  client_id:
+                    type: string
+                  client_secret:
+                    type: string
+                  grant_type:
+                    type: string
+                  
+          required: true
+          description: the oauth properites
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              access_key:
+                type: string
+              token_type:
+                type: string
+              expires_in:
+                type: string
+              refresh_token:
+                type: string
+              scope:
+                type: string
+        "400":
+          description: Invalid username/password supplied
+  /users:
+    x-swagger-router-controller: usersController
+    get:
+      description: Returns a list of opo users
+      operationId : get
+      tags:
+        - Users
+      security:
+          - opoAccessCode:
+            - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+     
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/User'
+
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users/{id}:
+    x-swagger-router-controller: usersController
+    get:
+      description: Returns a single opo user
+      operationId : getUser
+      tags:
+        - Users
+      security:
+          - opoAccessCode:
+            - admin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The OPO user ID
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "#/definitions/User"
+
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    patch:
+      description: Edit a single opo users status
+      tags:
+        - Users
+      security:
+          - opoAccessCode:
+            - admin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The OPO user ID
+          type: string
+        - name: updates
+          in: body
+          schema:
+            type: array
+            items:
+                properties:
+                  suspened:
+                    type: boolean
+                  banned:
+                    type: boolean
+                  
+          required: true
+          description: the new properties to be set
+      responses:
+        "200":
+          description: OK
+  /me:
+    get:
+      description: Returns my settings or permissions
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Sucess
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  permissions:
+                    type : object
+                    properties:
+                      companies:
+                        type: string
+                      flags:
+                        type: string
+                      industries:
+                        type: string
+                      jobs:
+                        type: string
+                      languages:
+                        type: string
+                      locations:
+                        type: string
+                      positions:
+                        type: string
+                      skills:
+                        type: string
+                      users:
+                        type: string
+                      videos:
+                        type: string
+  /admins:
+    get:
+      description: Returns the OPO admins
+      tags:
+        - Admins
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      security:
+          - opoAccessCode:
+            - super_admin
+      responses:
+        200:
+          description: Success
+          schema:
+            # a pointer to a definition of a user
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Admin"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a new admin
+      tags:
+        - Admins
+      security:
+          - opoAccessCode:
+            - super_admin
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref : '#/definitions/NewAdmin'
+      responses:
+        200:
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /admins/{id}:
+    get:
+      description: Returns a single OPO admin
+      tags:
+        - Admins
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The OPO admin ID
+          type: string
+      security:
+          - opoAccessCode:
+            - super_admin
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                $ref: "#/definitions/Admin"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      description: Edit a single OPO admin
+      tags:
+        - Admins
+      security:
+          - opoAccessCode:
+            - super_admin
+      parameters:
+        - name: id
+          in: path
+          type: string
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref : '#/definitions/Admin'
+
+      responses:
+        200:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /companies:
+    get:
+      description: Get list of companies
+      tags:
+        - Companies
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Company"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /companies/{id}:
+    patch:
+      description: Update the company status
+      tags:
+        - Companies
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+        - name: updates
+          required: true
+          in: body
+          schema:
+            type: array
+            items:
+                properties:
+                  status:
+                    type: string
+          required: true
+          description: the new status to set ( banned, un-banned )
+      responses:
+        200:
+          description: OK
+        default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /skills:
+    get:
+      description: Get list of skills
+      tags:
+        - Skills
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Skill"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a new skill
+      tags:
+        - Skills
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: data
+          required: true
+          in: body
+          schema:
+            $ref : '#/definitions/NewSkill'
+          required: true
+          description: Skill elements
+      responses:
+        200:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /skill/{id}:
+    patch:
+      description: Update the skill approval
+      tags:
+        - Skills
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+        - name: updates
+          required: true
+          in: body
+          schema:
+            type: array
+            items:
+                properties:
+                  status:
+                    type: string
+          required: true
+          description: the new approval to set ( not-approved, approved )
+      responses:
+        200:
+          description: OK
+        default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /positions:
+    get:
+      description: Get list of positions
+      tags:
+        - Positions
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Position"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a new position
+      tags:
+        - Positions
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: data
+          required: true
+          in: body
+          schema:
+            $ref : '#/definitions/NewPosition'
+          required: true
+          description: Position elements
+      responses:
+        200:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /position/{id}:
+    patch:
+      description: Update the position approval
+      tags:
+        - Positions
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+        - name: updates
+          required: true
+          in: body
+          schema:
+            type: array
+            items:
+                properties:
+                  approved:
+                    type: string
+          required: true
+          description: the new approval to set ( not-approved, approved )
+      responses:
+        200:
+          description: OK
+        default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /industries:
+    get:
+      description: Get list of industries
+      tags:
+        - Industries
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Industry"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a new industry
+      tags:
+        - Industries
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: data
+          required: true
+          in: body
+          schema:
+            $ref : '#/definitions/NewIndustry'
+          required: true
+          description: Position elements
+      responses:
+        200:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /locations:
+    get:
+      description: Get list of locations
+      tags:
+        - Locations
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Location"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a new location
+      tags:
+        - Locations
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: data
+          required: true
+          in: body
+          schema:
+            $ref : '#/definitions/NewLocation'
+          required: true
+          description: Location elements
+      responses:
+        200:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /languages:
+    get:
+      description: Get list of languages
+      tags:
+        - Languages
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Languages"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a new languages
+      tags:
+        - Languages
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: data
+          required: true
+          in: body
+          schema:
+            $ref : '#/definitions/NewLanguages'
+          required: true
+          description: Location elements
+      responses:
+        200:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /videos:
+    get:
+      description: Get list of videos
+      tags:
+        - Videos
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Video"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /videos/{id}:
+    get:
+      description: video a single video
+      tags:
+        - Videos
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: video ID
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "#/definitions/Video"
+
+    patch:
+      description: Update the video status
+      tags:
+        - Videos
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+        - name: updates
+          required: true
+          in: body
+          schema:
+            type: array
+            items:
+                properties:
+                  status:
+                    type: string
+          required: true
+          description: the new status to set ( banned, not-banned )
+      responses:
+        200:
+          description: OK
+        default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+
+  /jobs:
+    get:
+      description: Get list of jobs
+      tags:
+        - Jobs
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Job"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /jobs/{id}:
+    get:
+      description: get a single job
+      tags:
+        - Jobs
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: job ID
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "#/definitions/Job"
+
+    patch:
+      description: Update the job status
+      tags:
+        - Jobs
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+        - name: updates
+          required: true
+          in: body
+          schema:
+            type: array
+            items:
+                properties:
+                  status:
+                    type: string
+          required: true
+          description: the new status to set ( banned, not-banned )
+      responses:
+        200:
+          description: OK
+        default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /flags:
+    get:
+      description: Get the list of flagged objects on OPO
+      tags: 
+        - Flags
+      security:
+        - opoAccessCode:
+          - admin
+      parameters:
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: filter by type of object ( video, user, company, job )
+      responses:
+        200:
+          description: OK
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Flag"
+        default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /flags/{id}:
+    get:
+        description: View a single flagging incident
+        tags: 
+          - Flags
+        security:
+          - opoAccessCode:
+            - admin
+        parameters:
+          - name: id
+            in: path
+            required: true
+            type: string
+        responses:
+          200:
+            description: OK
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/definitions/Flag"
+          default:
+              description: Error
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+    delete:
+        description: Remove a flag from the system
+        tags: 
+          - Flags
+        security:
+          - opoAccessCode:
+            - admin
+        parameters:
+          - name: id
+            in: path
+            required: true
+            type: string
+        responses:
+          200:
+            description: OK
+          default:
+              description: Error
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+
+# complex objects have schema definitions
+definitions:
+  User:
+    properties:
+      id:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      video_url:
+        type: string
+      picture_url:
+        type: string
+      contact_info:
+        type: object
+        properties:
+          email:
+            type: string
+          mobile:
+            type: string
+          skype:
+            type: string
+      created_at:
+        type: string
+        format: date-time
+      status:
+        type: string
+      suspended:
+        type: boolean
+      banned:
+        type: boolean
+  Admin:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
+      type:
+        type: string
+        description: Can be ( admin, superadmin )
+      permissions:
+                type: object
+                description : permission for resources ( 0 = none, 1 = read, 2 = read & write )
+                properties:
+                  users:
+                    type: integer
+                  companies:
+                    type: integer
+                  skills:
+                    type: integer
+                  positions:
+                    type: integer
+                  industries:
+                    type: integer
+                  videos:
+                    type: integer
+                  jobs:
+                    type: integer
+                  flags:
+                    type: integer
+                  locations:
+                    type: integer
+                  languages:
+                    type: integer
+  NewAdmin:
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      permissions:
+                type: object
+                description : permission for resources ( 0 = none, 1 = read, 2 = read & write )
+                properties:
+                  users:
+                    type: integer
+                  companies:
+                    type: integer
+                  skills:
+                    type: integer
+                  positions:
+                    type: integer
+                  industries:
+                    type: integer
+                  videos:
+                    type: integer
+                  jobs:
+                    type: integer
+                  flags:
+                    type: integer
+                  locations:
+                    type: integer
+                  languages:
+                    type: integer
+  Company:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      owner_id:
+        type: string
+      owner_name:
+        type: string
+      status: 
+        description: can be ( banned, suspended, active )
+        type: string
+  Skill:
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      type:
+        description: can be professional, personal, technology
+        type: string
+      status:
+        description: can be ( approved, not-approved )
+        type: string
+  NewSkill:
+    properties:
+      title:
+        type: string
+      type:
+        type: string
+  Position:
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      status:
+        description: can be ( approved, not-approved )
+        type: string
+  NewPosition:
+    properties:
+      title:
+        type: string
+      type:
+        type: string
+  Location:
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      latitude:
+        type: string
+      longitude:
+        type: string
+      country_id: 
+        type: string
+  NewLocation:
+    properties:
+      title:
+        type: string
+      geo_pint:
+        type: string
+      type:
+        type: string
+  Industry:
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+  NewIndustry:
+    properties:
+      title:
+        type: string
+      type:
+        type: string
+  Languages:
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      alias:
+        type: string
+  NewLanguages:
+    properties:
+      title:
+        type: string
+      alias:
+        type: string
+  Video:
+    properties:
+      id:
+        type: string
+      owner_id:
+        type: string
+      url:
+        type: string
+      screen_shot:
+        type: string
+      status:
+        description: can be ( banned, not-banned )
+        type: string
+  Flag:
+    properties:
+      id: 
+        type: string
+      object_id:
+        type: string
+      type: 
+        type: string
+      reason: 
+        type: string
+  Job:
+    properties:
+      id:
+        type: string
+      owner_id:
+        type: string
+      title:
+        type: string
+      summary:
+        type: string
+      questionaire:
+          type: array
+          items:
+              properties:
+                type:
+                  type: string
+                question:
+                  type: string
+                answers:
+                  type: array
+                  items:
+                    type: string
+      status:
+        description: can be ( banned, not-banned )
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+parameters:
+  skipParam:
+    name: skip
+    in: query
+    description: number of items to skip
+    required: false
+    type: integer
+    format: int32
+  limitParam:
+    name: limit
+    in: query
+    description: max records to return
+    required: false
+    type: integer
+    format: int32
+securityDefinitions:
+  opoAccessCode:
+    type: oauth2
+    scopes:
+      admin: Grants read/write access to users, videos, companies.
+      super_admin: Grants read/write access to admin scope plus the admins endpoint
+    flow: password
+    tokenUrl:
+      /oauth/login

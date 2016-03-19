@@ -1,0 +1,51 @@
+<div data-ng-init="methods.getAdmin()">
+
+    Admin
+
+    <div flex layout="row" layout-align="center center">
+        <div flex-sm="100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="70" class="md-whiteframe-z3" >
+            <md-content class="md-padding">
+                <div flex-sm="100" flex-gt-sm="80" layout-sm="column">
+                    <form name="contactForm" data-ng-submit="methods.saveAdmin(admin.id)">
+
+                        <md-input-container>
+                            <label>Name:</label>
+                            <input ng-model="admin.name"  required>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Email:</label>
+                            <input type="email" ng-model="admin.email" required>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Type:</label>
+                            <input ng-model="admin.type" required>
+                        </md-input-container>
+
+
+                        <h2>Permissions</h2>
+                        <section>
+
+                            <label>Admins:</label>
+                            <md-switch ng-model="admin.permissions.admins" aria-label="Read" ng-true-value="1" ng-false-value="0">
+                                Read
+                            </md-switch>
+                            <md-switch ng-model="admin.permissions.admins" aria-label="Read/Write" ng-true-value="2" ng-false-value="0">
+                                Read/Write
+                            </md-switch>
+
+                        <label>Users:</label>
+                        <md-switch ng-model="admin.permissions.users" aria-label="Read" ng-true-value="1" ng-false-value="0">
+                            Read
+                        </md-switch>
+                        <md-switch ng-model="admin.permissions.users" aria-label="Read/Write" ng-true-value="2" ng-false-value="0">
+                            Read/Write
+                        </md-switch>
+
+                        <md-button type="submit" class="md-raised md-primary">Save</md-button>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>

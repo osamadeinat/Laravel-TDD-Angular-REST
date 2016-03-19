@@ -1,0 +1,251 @@
+/*
+  Sass Loader
+  Load Angular Sass Files
+  APP Styles
+*/
+
+@import "resources/assets/sass/angular-material-sass-files/angular-material.scss";
+
+
+html, body{
+  /* Rectangle 8: */
+  background-image: linear-gradient(-134deg, #006182 0%, #C86DD7 100%);
+  background-attachment: fixed;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.login-panel{
+  max-width: 400px;
+  margin-left: 40%;
+  margin-top: 15%;
+
+  @media screen and (max-width: 800px){
+    margin-left: 20%;
+  }
+
+  @media screen and (max-width: 580px){
+    margin-left: 10%;
+    width: 80%;
+  }
+}
+
+.login-error{
+  color: red;
+  text-align: center;
+}
+
+.main-logout{
+  float: right;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.main-welcome-user{
+  float: right;
+  text-decoration: underline;
+}
+.main-content{
+  background-color: white;
+  min-height: 800px;
+  margin-left: 10%;
+  width: 90%;
+}
+
+.title{
+  padding: 1em;
+}
+
+.nav-menu{
+  background-image: linear-gradient(-134deg, #006182 0%, #C86DD7 100%);
+  float: left;
+  width: 10%;
+  min-height: 600px;
+  position: fixed;
+}
+
+.menu-items {
+  color: #FFFFFF;
+  list-style-type: none;
+}
+
+.menu-item {
+  margin-bottom: 1em;
+  a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+i {
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+.main-fab {
+  position:absolute;
+  z-index:20;
+  font-size:30px;
+  top:100px;
+  left:24px;
+  transform:scale(.88,.88);
+}
+
+.md-breadcrumb {
+  padding-left:88px;
+}
+
+.JCLRgrip:first-child {
+  left:105px!important;
+  display: none!important;
+}
+
+.JColResizer th:first-child {
+  width: 105px!important;
+}
+
+.md-table {
+  min-width: 80%;
+  border-collapse: collapse;
+  margin-left: 10%;
+}
+
+.md-table tbody tr:hover, .md-table tbody tr:focus {
+  cursor:pointer;
+  background-color:rgba(63,81,181,0.2);
+}
+
+.md-table-header {
+  border-bottom: 1px solid rgb(230,230,230);
+  color: rgb(130,130,130);
+  text-align: center;
+  font-size: 0.75em;
+  font-weight: 700;
+  padding: 16px 16px 16px 16px;
+}
+
+.md-table-header a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.md-table-content {
+  white-space: nowrap;
+  font-size: 0.8em;
+  padding: 16px 16px 16px 16px;
+  height: 1em;
+  text-align: center;
+}
+
+.md-table-td-more {
+  max-width:72px;
+  width:72px;
+  padding:16px;
+}
+
+.md-table-thumbs {
+  max-width: 104px;
+  width: 104px;
+  padding: 16px 32px;
+}
+
+.md-table-thumbs div {
+  overflow:hidden;
+  width: 40px;
+  height:40px;
+  border-radius:20px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background-size:cover;
+  box-shadow: 0 8px 10px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 8px 10px rgba(0,0,0,.1);
+}
+
+.md-table-footer {
+  height:40px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.md-table-count-info {
+  line-height:40px;
+  font-size:.75em;
+}
+
+.md-table-footer-item {
+  width: 40px;
+  height: 40px;
+  vertical-align:middle;
+}
+
+.md-table-active-page {
+  font-weight: 700;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.grey {
+  color: grey;
+}
+
+.md-button.md-icon-button {
+  height: 2.8rem;
+  margin: 0 0rem;
+  min-width: 0;
+  width: 2.2rem;
+}
+
+.user-avatar{
+  width: 80px;
+  height: 80px;
+  border-radius: 150px
+}
+
+.video-screenshot {
+  width: 80px;
+  height: 80px;
+}
+
+.pagination {
+  text-align: center;
+  margin: 20px 0;
+  word-spacing: -1em;
+  padding-bottom: 2em;
+}
+.pagination li {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  display: inline-block;
+  list-style: none;
+  font: bold 12px/13px Arial, Helvetica, sans-serif;
+  padding: 5px 9px;
+  color: #FFFFFF;
+  background: #673AB7;
+  word-spacing: normal;
+  margin: 0 1px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pagination li:hover {
+  background: #E040FB;
+}
+
+.pagination li.active {
+  background: #E040FB;
+}
+
+.pagination li.disabled {
+  cursor: not-allowed;
+  background-color: grey;
+}
+
+.angular-google-map-container { height: 400px; }

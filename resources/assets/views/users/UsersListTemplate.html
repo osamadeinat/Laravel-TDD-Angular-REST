@@ -1,0 +1,111 @@
+<div class="title">{{title}}</div>
+
+<div data-ng-init="methods.getUsers()">
+
+    <section layout="column" layout-sm="column" layout-align="center center">
+        <md-input-container>
+            <label>Search</label>
+            <input type="text" ng-model="name" ng-change="methods.search(name)">
+        </md-input-container>
+    </section>
+
+    <table class="md-table md-whiteframe-z3">
+        <thead>
+        <tr class="md-table-headers-row">
+            <td class="md-table-header">
+                <a>
+                    Avatar
+                </a>
+            </td>
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'first_name' ; sortReverse=!sortReverse">
+                    Name
+                    <span ng-show="sortType == 'first_name' " ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                </a>
+            </td>
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'contact_info.email'; sortReverse=!sortReverse">
+                    <span ng-show="sortType == 'contact_info.email'" ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                    E-mail
+                </a>
+            </td>
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'contact_info.skype'; sortReverse=!sortReverse">
+                    <span ng-show="sortType == 'contact_info.skype'" ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                    Skype
+                </a>
+            </td>
+            <td class="md-table-header">
+                <a  ng-click="sortType = 'contact_info.mobile' ; sortReverse=!sortReverse">
+                    <span ng-show="sortType == 'contact_info.mobile'" ng-class="{'fa fa-caret-up':sortReverse, 'fa fa-caret-down': !sortReverse }"></span>
+                    Mobile
+                </a>
+            </td>
+
+            <td class="md-table-header">
+                <a href="#">
+                    Video
+                </a>
+            </td>
+
+            <td class="md-table-header" ng-show="{{permissions.users == 2}}">
+                <a href="#">
+                    Banned
+                </a>
+            </td>
+            <td class="md-table-header" ng-show="{{permissions.users == 2}}">
+                <a href="#">
+                    Suspended
+                </a>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in users  | orderBy:sortType:sortReverse | filter:search" class="md-table-content-row">
+            <td class="md-table-content"><img-directive url="user.picture_url"></img-directive></td>
+            <td class="md-table-content">{{ user.first_name + ' ' + user.last_name }}</td>
+            <td class="md-table-content">{{ user.contact_info.email }}</td>
+            <td class="md-table-content">{{ user.contact_info.skype }}</td>
+            <td class="md-table-content">{{ user.contact_info.mobile }}</td>
+            <td class="md-table-content">
+                <span class="fa fa-play" ng-click="methods.showPlayer($event, user.video_url)">
+                </span>
+            </td>
+            <td class="md-table-td-more" ng-show="{{permissions.users == 2}}">
+                <md-switch aria-label="status" ng-model="user.banned" ng-true-value="true" ng-false-value="false" ng-click="methods.toggleStatus(user)">
+
+                </md-switch>
+            </td>
+            <td class="md-table-td-more" ng-show="{{permissions.users == 2}}">
+                <md-switch aria-label="status" ng-model="user.suspended" ng-true-value="true" ng-false-value="false" ng-click="methods.toggleStatus(user)">
+
+                </md-switch>
+            </td>
+
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+    <tfoot>
+    <tr>
+        <span>Page {{meta.currentPage}} Of {{meta.total/pageLimit}}</span>
+        <paging
+                class="small"
+                page="meta.currentPage"
+                page-size="pageLimit"
+                total="meta.total"
+                adjacent="2"
+                dots="..."
+                scroll-top="false"
+                hide-if-empty="true"
+                ul-class="pagination"
+                active-class="active"
+                disabled-class="disabled"
+                show-prev-next="true"
+                paging-action="methods.pagingHandler('Paging Clicked', page - 1, pageSize, total)">
+
+        </paging>
+    </tr>
+    </tfoot>
+</div>
+
